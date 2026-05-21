@@ -3,491 +3,323 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal Asesmen Sumatif - SMP Negeri 36 Samarinda</title>
+  <title>Portal Asesmen SMP Negeri 36 Samarinda</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <script src="/_sdk/element_sdk.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Playfair+Display:wght@700;800&amp;display=swap" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Plus Jakarta Sans', 'sans-serif'],
-            display: ['Playfair Display', 'serif']
-          }
-        }
-      }
-    }
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
   <style>
-    html, body { height: 100%; margin: 0; }
-    .portal-wrapper { height: 100%; overflow: auto; }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateX(-20px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-    @keyframes pulse-glow {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(59,130,246,0.3); }
-      50% { box-shadow: 0 0 20px 6px rgba(59,130,246,0.15); }
-    }
-    @keyframes countdown-pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.03); }
-    }
-    .anim-fade-up { animation: fadeUp 0.7s ease-out both; }
-    .anim-slide-in { animation: slideIn 0.5s ease-out both; }
-    .card-glow:hover { animation: pulse-glow 2s infinite; }
-    .countdown-box { animation: countdown-pulse 2s ease-in-out infinite; }
-    .subject-card {
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .subject-card:hover {
-      transform: translateY(-4px);
-    }
-    .bg-mesh {
-      background-image:
-        radial-gradient(at 20% 20%, rgba(59,130,246,0.08) 0%, transparent 50%),
-        radial-gradient(at 80% 80%, rgba(16,185,129,0.06) 0%, transparent 50%),
-        radial-gradient(at 50% 0%, rgba(139,92,246,0.05) 0%, transparent 60%);
-    }
-    .nav-glass {
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-    }
-    .time-expired { opacity: 0.5; pointer-events: none; }
-    .admin-badge {
-      background: linear-gradient(135deg, #f59e0b, #ef4444);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-  </style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass { background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
+        .fade-in { animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+        .pulse-dot { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
+    </style>
   <style>body { box-sizing: border-box; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
- <body class="h-full font-sans">
-  <div id="app" class="portal-wrapper w-full bg-slate-50 bg-mesh"><!-- Navigation -->
-   <nav class="nav-glass sticky top-0 z-50 border-b border-slate-200/60">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-     <div class="flex items-center gap-3"><img src="https://iili.io/BxaPayB.png" alt="Logo SMP Negeri 36 Samarinda" class="w-11 h-11 rounded-full shadow-sm" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#3b82f6,#1d4ed8)'; this.alt='Logo';">
+ <body class="h-full">
+  <div id="app" class="h-full w-full overflow-auto bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-100" style="min-height:100%;"><!-- Header -->
+   <header class="w-full bg-white/90 backdrop-blur-md shadow-sm border-b border-blue-100 sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+     <div class="flex items-center gap-3"><img src="https://iili.io/BxaPayB.png" alt="Logo" class="w-12 h-12 object-contain rounded-lg" loading="lazy" onerror="this.style.background='#3b82f6';this.alt='Logo';">
       <div>
-       <h1 id="nav-school" class="text-sm font-bold text-slate-800 leading-tight">SMP NEGERI 36 SAMARINDA</h1>
-       <p id="nav-subtitle" class="text-[11px] text-slate-500 font-medium">Asesmen Sumatif Akhir Semester</p>
+       <h1 class="text-sm md:text-base font-bold text-gray-800" id="el-school-name">SMP NEGERI 36 SAMARINDA</h1>
+       <p class="text-xs text-blue-600 font-semibold" id="el-portal-title">Asesmen Sumatif Akhir Semester</p>
       </div>
-     </div>
-     <div class="flex items-center gap-2">
-      <div class="text-right"><button id="btn-admin-toggle" onclick="toggleAdmin()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-600 transition-all"> <i data-lucide="shield" class="w-3.5 h-3.5"></i> <span id="admin-label">Admin</span> </button>
-       <p id="current-time" class="text-[10px] text-slate-400 mt-1 font-mono"></p>
-      </div>
-     </div>
+     </div><button onclick="showAdminPrompt()" class="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-600 text-xs font-medium transition"> <i data-lucide="shield" style="width:14px;height:14px;"></i> Admin </button>
     </div>
-   </nav><!-- Admin Gate -->
-   <div id="admin-gate" class="hidden fixed inset-0 z-[60] bg-black/40 flex items-center justify-center p-4" style="backdrop-filter:blur(4px)">
-    <div class="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-sm anim-fade-up">
-     <div class="text-center mb-5">
-      <div class="w-14 h-14 bg-amber-50 rounded-xl flex items-center justify-center mx-auto mb-3"><i data-lucide="lock" class="w-7 h-7 text-amber-500"></i>
-      </div>
-      <h3 class="font-bold text-lg text-slate-800">Akses Admin</h3>
-      <p class="text-sm text-slate-500 mt-1">Masukkan kode akses untuk melanjutkan</p>
-     </div>
-     <div class="mb-4"><label for="admin-pass" class="sr-only">Kode Akses</label> <input id="admin-pass" type="password" maxlength="6" placeholder="••••••" class="w-full text-center text-2xl tracking-[0.5em] py-3 px-4 border-2 border-slate-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors font-mono" onkeydown="if(event.key==='Enter')checkAdmin()">
-     </div>
-     <p id="admin-error" class="text-red-500 text-xs text-center mb-3 hidden">Kode akses salah</p>
-     <div class="flex gap-2"><button onclick="closeAdminGate()" class="flex-1 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold text-slate-600 hover:bg-slate-50 transition-colors">Batal</button> <button onclick="checkAdmin()" class="flex-1 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition-colors">Masuk</button>
-     </div>
-    </div>
-   </div><!-- Hero Section -->
-   <header class="relative overflow-hidden">
-    <div class="max-w-6xl mx-auto px-4 pt-10 pb-8 text-center">
-     <div class="anim-fade-up"><img src="https://iili.io/BxaPayB.png" alt="Logo Sekolah" class="w-20 h-20 mx-auto mb-5 rounded-2xl shadow-lg" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#3b82f6,#1d4ed8)'; this.alt='Logo';">
-      <p class="text-xs font-bold tracking-[0.25em] uppercase text-blue-600 mb-2" id="hero-label">Portal Asesmen</p>
-      <h2 id="hero-title" class="font-display text-3xl md:text-4xl font-extrabold text-slate-900 mb-2">Asesmen Sumatif Akhir Semester</h2>
-      <h3 id="hero-school" class="text-lg md:text-xl font-bold text-slate-700">SMP NEGERI 36 SAMARINDA</h3>
-      <p id="hero-year" class="text-sm text-slate-500 mt-1 font-medium">Tahun Pembelajaran 2025/2026</p>
-     </div><!-- Countdown / Status -->
-     <div id="status-area" class="mt-8 anim-fade-up" style="animation-delay:0.2s"></div>
+    <div class="max-w-5xl mx-auto px-4 pb-2">
+     <p class="text-xs text-gray-500 font-medium" id="clock-display"></p>
     </div>
    </header><!-- Main Content -->
-   <main class="max-w-6xl mx-auto px-4 pb-16">
-    <div id="content-area"></div>
-   </main><!-- Footer -->
-   <footer class="border-t border-slate-200/60 bg-white/50 py-6 text-center">
-    <p class="text-xs text-slate-400">© 2025 SMP Negeri 36 Samarinda. Portal Asesmen Sumatif Akhir Semester.</p>
+   <main class="max-w-5xl mx-auto px-4 py-6" id="main-content"></main><!-- Admin Password Modal -->
+   <div id="admin-modal" class="fixed inset-0 z-[999] hidden items-center justify-center bg-black/40 backdrop-blur-sm" style="display:none;">
+    <div class="bg-white rounded-2xl p-6 w-80 shadow-2xl fade-in">
+     <h3 class="font-bold text-gray-800 mb-3">Akses Admin</h3><input type="password" id="admin-pass" placeholder="Masukkan password" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm mb-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
+     <p id="admin-error" class="text-red-500 text-xs mb-2 hidden">Password salah!</p>
+     <div class="flex gap-2"><button onclick="checkAdmin()" class="flex-1 bg-blue-600 text-white text-sm font-semibold rounded-lg py-2 hover:bg-blue-700 transition">Masuk</button> <button onclick="hideAdminModal()" class="flex-1 bg-gray-100 text-gray-600 text-sm font-semibold rounded-lg py-2 hover:bg-gray-200 transition">Batal</button>
+     </div>
+    </div>
+   </div><!-- Footer -->
+   <footer class="w-full py-4 text-center text-xs text-gray-400 font-medium border-t border-blue-100 mt-8">
+    © 2026 TIM ASESMEN SMP NEGERI 36 SAMARINDA
    </footer>
   </div>
   <script>
-    // ===== CONFIG & STATE =====
-    const ADMIN_CODE = '000000';
-    let isAdmin = false;
+const ADMIN_PASS = '000000';
+const WITA_OFFSET = 8;
 
-    const defaultConfig = {
-      school_name: 'SMP NEGERI 36 SAMARINDA',
-      exam_title: 'Asesmen Sumatif Akhir Semester',
-      academic_year: '2025/2026',
-      background_color: '#f8fafc',
-      surface_color: '#ffffff',
-      text_color: '#1e293b',
-      primary_action_color: '#2563eb',
-      secondary_action_color: '#64748b',
-      font_family: 'Plus Jakarta Sans',
-      font_size: 16
-    };
+const SCHEDULE = [
+    { date: '2026-06-02', day: 'Selasa', subjects: ['Pendidikan Agama Islam', 'Pendidikan Agama Kristen', 'Bahasa Indonesia'] },
+    { date: '2026-06-03', day: 'Rabu', subjects: ['PKn', 'IPS'] },
+    { date: '2026-06-04', day: 'Kamis', subjects: ['IPA', 'Seni Budaya'] },
+    { date: '2026-06-05', day: 'Jumat', subjects: ['Bahasa Inggris', 'PJOK'] },
+    { date: '2026-06-08', day: 'Senin', subjects: ['Matematika', 'Informatika'] },
+];
 
-    // WITA = UTC+8
-    const WITA_OFFSET = 8;
-    function getWITA() {
-      const now = new Date();
-      const utc = now.getTime() + now.getTimezoneOffset() * 60000;
-      return new Date(utc + WITA_OFFSET * 3600000);
-    }
+const LINKS_VIII = {
+    'Pendidikan Agama Islam': ['https://forms.gle/9orZxvZ58vvrtmYy6'],
+    'Pendidikan Agama Kristen': ['https://forms.gle/Qo7H9g4hvQugxmCi8'],
+    'Bahasa Indonesia': ['https://forms.gle/6gxfVLqZKyFC7Eu6A|VIII A', 'https://forms.gle/MpvKvCtDcSt74pLM7|VIII B, C, D, E'],
+    'PKn': ['https://forms.gle/M4AgxvXNUVAdxwSi6'],
+    'IPS': ['https://forms.gle/ofvza4H4rwFqLAHt8'],
+    'IPA': ['https://forms.gle/V5NgFnqi21D7QcYU9'],
+    'Seni Budaya': ['https://forms.gle/dByxNgrV5Tfk49gu7'],
+    'Bahasa Inggris': ['https://forms.gle/bp1XxugN5x3Do8MG6|VIII A, B', 'https://forms.gle/r9yefZSVbQzuTL8W9|VIII C, D, E'],
+    'PJOK': ['https://forms.gle/e49giVqrqi34zRqN6'],
+    'Matematika': ['https://forms.gle/3gqZ6UFArhQgk2L96'],
+    'Informatika': ['https://forms.gle/LdkTD6yAuq18FSAw6'],
+};
 
-    // Exam starts May 4, 2026 00:00 WITA
-    const EXAM_START = new Date(Date.UTC(2026, 4, 4, 0, 0, 0) - WITA_OFFSET * 3600000);
+const LINKS_VII = {
+    'Pendidikan Agama Islam': ['https://forms.gle/ViKHssntPvwBMz5q7'],
+    'Pendidikan Agama Kristen': ['https://forms.gle/zZnSvMnYYd7BwX4C8'],
+    'Bahasa Indonesia': ['https://forms.gle/V8GEvKybazKpjqMA9'],
+    'PKn': ['https://forms.gle/AuHKp2PTkh2MtS69A'],
+    'IPS': ['https://forms.gle/VsjT1hmNjtYLAbJj9'],
+    'IPA': ['Link Menyusul'],
+    'Seni Budaya': ['https://forms.gle/xhdiYRuy85KyriJD6'],
+    'Bahasa Inggris': ['https://forms.gle/zjVgQW2XmXKD63pp7|VII A, B, C', 'https://forms.gle/YnfHFMghAVQg9v9JA|VII D, E'],
+    'PJOK': ['https://forms.gle/U4GCxowvhthK5xGy7'],
+    'Matematika': ['https://forms.gle/bCrKb9qXj9y8kR9C7'],
+    'Informatika': ['https://forms.gle/u4jRfmggu9gnhKzZ8'],
+};
 
-    const SCHEDULE = {
-      1: [ // Monday (Senin)
-        { name: 'Pendidikan Agama dan Budi Pekerti', link: 'https://forms.gle/VoaaybzQzxLhNdG7A', icon: 'book-open' },
-        { name: 'Pendidikan Agama Kristen', link: 'https://forms.gle/TPJKNXFc5QkZbmui8', icon: 'book-open' },
-        { name: 'Bahasa Indonesia', link: 'https://forms.gle/UCYMLXc7gxVKRoAy6', icon: 'pen-tool' }
-      ],
-      2: [ // Tuesday (Selasa)
-        { name: 'PKn', link: 'https://forms.gle/aKvY1beQs5pQbU6s9', icon: 'landmark' },
-        { name: 'IPS', link: 'https://forms.gle/oCRHCAndDHaJQA6H6', icon: 'globe' }
-      ],
-      3: [ // Wednesday (Rabu)
-        { name: 'IPA', link: 'https://forms.gle/UdGZfW5aRgBg4RDP8', icon: 'flask-conical' },
-        { name: 'Seni Budaya', link: 'https://forms.gle/nngZhw637My8X3HV9', icon: 'palette' }
-      ],
-      4: [ // Thursday (Kamis)
-        { name: 'Bahasa Inggris', link: 'https://forms.gle/rA5VevojAGX2aKAdA', icon: 'languages' },
-        { name: 'PJOK', link: 'https://forms.gle/UE9a8c6rH9SqjES36', icon: 'dumbbell' }
-      ],
-      5: [ // Friday (Jumat)
-        { name: 'Matematika', link: 'https://forms.gle/kuSHuAixQTmr8Tvv8', icon: 'calculator' },
-        { name: 'Informatika', link: 'https://forms.gle/kpCvb1hJ56CGL77g8', icon: 'monitor' }
-      ]
-    };
+let currentView = 'home';
+let isAdmin = false;
 
-    const DAY_NAMES = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
-    const DAY_COLORS = {
-      1: { bg: 'bg-blue-50', border: 'border-blue-200', accent: 'bg-blue-600', text: 'text-blue-700', light: 'text-blue-500' },
-      2: { bg: 'bg-emerald-50', border: 'border-emerald-200', accent: 'bg-emerald-600', text: 'text-emerald-700', light: 'text-emerald-500' },
-      3: { bg: 'bg-violet-50', border: 'border-violet-200', accent: 'bg-violet-600', text: 'text-violet-700', light: 'text-violet-500' },
-      4: { bg: 'bg-amber-50', border: 'border-amber-200', accent: 'bg-amber-600', text: 'text-amber-700', light: 'text-amber-500' },
-      5: { bg: 'bg-rose-50', border: 'border-rose-200', accent: 'bg-rose-600', text: 'text-rose-700', light: 'text-rose-500' }
-    };
+function getWITA() {
+    const now = new Date();
+    const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+    return new Date(utc + WITA_OFFSET * 3600000);
+}
 
-    const SIMULATION_LINK = 'https://forms.gle/JEvriqtc3JewD47o6';
+function formatWITA(d) {
+    const days = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+    const months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+    return `${days[d.getDay()]}, ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()} - ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')} WITA`;
+}
 
-    // ===== ADMIN =====
-    function toggleAdmin() {
-      if (isAdmin) {
-        isAdmin = false;
-        document.getElementById('admin-label').textContent = 'Admin';
-        document.getElementById('status-area').innerHTML = '';
-        renderContent();
-        renderStatus();
-        return;
-      }
-      document.getElementById('admin-gate').classList.remove('hidden');
-      document.getElementById('admin-pass').value = '';
-      document.getElementById('admin-error').classList.add('hidden');
-      setTimeout(() => document.getElementById('admin-pass').focus(), 100);
-      lucide.createIcons();
-    }
-    function closeAdminGate() {
-      document.getElementById('admin-gate').classList.add('hidden');
-    }
-    function checkAdmin() {
-      const v = document.getElementById('admin-pass').value;
-      if (v === ADMIN_CODE) {
-        isAdmin = true;
-        document.getElementById('admin-label').textContent = 'Keluar Admin';
-        document.getElementById('admin-gate').classList.add('hidden');
-        renderContent();
-        renderStatus();
-        lucide.createIcons();
-      } else {
-        document.getElementById('admin-error').classList.remove('hidden');
-        document.getElementById('admin-pass').value = '';
-        document.getElementById('admin-pass').focus();
-      }
-    }
+function updateClock() {
+    document.getElementById('clock-display').textContent = formatWITA(getWITA());
+}
+setInterval(updateClock, 1000);
+updateClock();
 
-    // ===== RENDERING =====
-    function isExamPeriod() {
-      return getWITA() >= EXAM_START;
-    }
+function getExamStart() { return new Date('2026-06-02T00:00:00+08:00'); }
 
-    function isBeforeDeadline() {
-      const now = getWITA();
-      return now.getHours() < 15 || (now.getHours() === 15 && now.getMinutes() < 15);
-    }
+function isExamPeriod() { return getWITA() >= getExamStart(); }
 
-    function openLink(url) {
-      // Open in same iframe
-      window.location.href = url;
-    }
+function getTodaySchedule() {
+    const wita = getWITA();
+    const dateStr = `${wita.getFullYear()}-${String(wita.getMonth()+1).padStart(2,'0')}-${String(wita.getDate()).padStart(2,'0')}`;
+    return SCHEDULE.find(s => s.date === dateStr);
+}
 
-    function renderStatus() {
-      const area = document.getElementById('status-area');
-      const now = getWITA();
+function isBeforeDeadline() {
+    const wita = getWITA();
+    return wita.getHours() < 12 || (wita.getHours() === 12 && wita.getMinutes() <= 15);
+}
 
-      if (!isExamPeriod()) {
-        const diff = EXAM_START - now;
-        const days = Math.floor(diff / 86400000);
-        const hours = Math.floor((diff % 86400000) / 3600000);
-        const mins = Math.floor((diff % 3600000) / 60000);
-        const secs = Math.floor((diff % 60000) / 1000);
-
-        area.innerHTML = `
-          <div class="countdown-box inline-flex flex-col items-center bg-white rounded-2xl shadow-lg shadow-blue-100/50 border border-blue-100 px-8 py-6 mx-auto">
-            <p class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-3">Ujian Dimulai Dalam</p>
-            <div class="flex gap-3">
-              ${[{v:days,l:'Hari'},{v:hours,l:'Jam'},{v:mins,l:'Menit'},{v:secs,l:'Detik'}].map(x => `
-                <div class="bg-slate-900 text-white rounded-xl w-16 h-16 flex flex-col items-center justify-center">
-                  <span class="text-xl font-bold font-mono">${String(x.v).padStart(2,'0')}</span>
-                  <span class="text-[9px] text-slate-400 uppercase tracking-wider">${x.l}</span>
+function renderHome() {
+    currentView = 'home';
+    const main = document.getElementById('main-content');
+    main.innerHTML = `
+        <div class="text-center mb-8 fade-in">
+            <h2 class="text-2xl md:text-3xl font-extrabold text-gray-800 mb-2">Portal Asesmen Sumatif</h2>
+            <p class="text-gray-500 text-sm">Pilih kelas untuk mengakses soal ujian</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto fade-in">
+            <button onclick="renderClass('VII')" class="card-hover glass rounded-2xl p-8 border border-blue-200 text-center group">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-blue-200 transition">
+                    <i data-lucide="book-open" style="width:28px;height:28px;color:#2563eb;"></i>
                 </div>
-              `).join('')}
-            </div>
-          </div>`;
-      } else {
-        const dayName = DAY_NAMES[now.getDay()];
-        const expired = !isBeforeDeadline();
-        area.innerHTML = `
-          <div class="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-full px-5 py-2">
-            <span class="w-2.5 h-2.5 rounded-full ${expired ? 'bg-red-500' : 'bg-emerald-500'} animate-pulse"></span>
-            <span class="text-sm font-semibold ${expired ? 'text-red-700' : 'text-emerald-700'}">${expired ? 'Waktu pengerjaan hari ini telah berakhir (batas 15:15 WITA)' : 'Ujian Sedang Berlangsung — ' + dayName}</span>
-          </div>`;
-      }
-    }
-
-    function renderContent() {
-      const area = document.getElementById('content-area');
-      const now = getWITA();
-
-      if (isAdmin) {
-        renderAdminView(area);
-        return;
-      }
-
-      if (!isExamPeriod()) {
-        renderPreExam(area);
-        return;
-      }
-
-      renderStudentView(area, now);
-    }
-
-    function renderStudentView(area, now) {
-      const dayOfWeek = now.getDay();
-      const subjects = SCHEDULE[dayOfWeek];
-
-      if (!subjects) {
-        area.innerHTML = `
-          <div class="text-center py-16 anim-fade-up">
-            <div class="w-20 h-20 bg-slate-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <i data-lucide="calendar-off" class="w-10 h-10 text-slate-400"></i>
-            </div>
-            <h3 class="text-xl font-bold text-slate-700 mb-2">Tidak Ada Ujian Hari Ini</h3>
-            <p class="text-slate-500 text-sm">Hari ini adalah ${DAY_NAMES[dayOfWeek]}. Ujian berlangsung Senin–Jumat.</p>
-          </div>`;
-        lucide.createIcons();
-        return;
-      }
-
-      const expired = !isBeforeDeadline();
-      const colors = DAY_COLORS[dayOfWeek];
-
-      area.innerHTML = `
-        <div class="anim-fade-up">
-          <div class="flex items-center justify-between mb-6">
-            <div>
-              <h3 class="text-xl font-bold text-slate-800">Ujian Hari Ini — ${DAY_NAMES[dayOfWeek]}</h3>
-              <p class="text-sm text-slate-500 mt-0.5">Batas pengerjaan hingga 15:15 WITA</p>
-            </div>
-            <div class="text-right">
-              <p class="text-2xl font-bold font-mono text-slate-800" id="clock-display"></p>
-              <p class="text-xs text-slate-400">WITA</p>
-            </div>
-          </div>
-          <div class="grid gap-4 md:grid-cols-${subjects.length > 2 ? '3' : '2'}">
-            ${subjects.map((s, i) => `
-              <div class="subject-card ${expired ? 'time-expired' : ''} ${colors.bg} border ${colors.border} rounded-2xl p-6 cursor-pointer card-glow anim-slide-in" style="animation-delay:${i*0.12}s" onclick="${expired ? '' : "openLink('"+s.link+"')"}">
-                <div class="flex items-start justify-between mb-4">
-                  <div class="${colors.accent} w-12 h-12 rounded-xl flex items-center justify-center shadow-sm">
-                    <i data-lucide="${s.icon}" class="w-6 h-6 text-white"></i>
-                  </div>
-                  ${expired ? '<span class="text-xs font-semibold text-red-500 bg-red-50 px-2 py-1 rounded-full">Berakhir</span>' : '<span class="text-xs font-semibold '+colors.light+' '+colors.bg+' px-2 py-1 rounded-full">Aktif</span>'}
-                </div>
-                <h4 class="font-bold text-slate-800 mb-1">${s.name}</h4>
-                <p class="text-xs text-slate-500">Klik untuk mengerjakan</p>
-              </div>
-            `).join('')}
-          </div>
-        </div>`;
-      lucide.createIcons();
-    }
-
-    function renderPreExam(area) {
-      area.innerHTML = `
-        <div class="text-center anim-fade-up py-12">
-          <div class="bg-white rounded-2xl shadow-lg shadow-blue-50 border border-slate-100 p-8 max-w-lg mx-auto">
-            <div class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-5">
-              <i data-lucide="file-text" class="w-8 h-8 text-blue-600"></i>
-            </div>
-            <h3 class="text-xl font-bold text-slate-800 mb-2">Soal Simulasi</h3>
-            <p class="text-sm text-slate-500 mb-6">Persiapkan dirimu dengan mengerjakan soal simulasi sebelum ujian dimulai.</p>
-            <button onclick="window.open('${SIMULATION_LINK}', '_blank', 'noopener,noreferrer')" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors shadow-lg shadow-blue-200">
-              <i data-lucide="play" class="w-4 h-4"></i>
-              Kerjakan Soal Simulasi
+                <h3 class="text-lg font-bold text-gray-800">KELAS VII</h3>
+                <p class="text-xs text-gray-400 mt-1">Tap untuk masuk</p>
             </button>
-          </div>
-        </div>`;
-      lucide.createIcons();
-    }
-
-    function renderAdminView(area) {
-      area.innerHTML = `
-        <div class="anim-fade-up">
-          <div class="flex items-center gap-3 mb-6">
-            <div class="bg-amber-100 w-10 h-10 rounded-xl flex items-center justify-center">
-              <i data-lucide="shield-check" class="w-5 h-5 text-amber-600"></i>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-slate-800">Mode Admin</h3>
-              <p class="text-sm text-slate-500">Akses penuh ke semua jadwal dan link ujian</p>
-            </div>
-          </div>
-          <div class="space-y-6">
-            ${[1,2,3,4,5].map(d => {
-              const c = DAY_COLORS[d];
-              return `
-              <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm anim-slide-in" style="animation-delay:${d*0.08}s">
-                <div class="${c.bg} px-5 py-3 border-b ${c.border}">
-                  <h4 class="font-bold ${c.text}">${DAY_NAMES[d]}</h4>
+            <button onclick="renderClass('VIII')" class="card-hover glass rounded-2xl p-8 border border-emerald-200 text-center group">
+                <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-emerald-200 transition">
+                    <i data-lucide="book-open" style="width:28px;height:28px;color:#059669;"></i>
                 </div>
-                <div class="divide-y divide-slate-100">
-                  ${SCHEDULE[d].map(s => `
-                    <div class="flex items-center justify-between px-5 py-3 hover:bg-slate-50 transition-colors">
-                      <div class="flex items-center gap-3">
-                        <div class="${c.accent} w-9 h-9 rounded-lg flex items-center justify-center">
-                          <i data-lucide="${s.icon}" class="w-4.5 h-4.5 text-white"></i>
-                        </div>
-                        <span class="font-medium text-slate-700 text-sm">${s.name}</span>
-                      </div>
-                      <button onclick="openLink('${s.link}')" class="flex items-center gap-1.5 px-4 py-2 rounded-lg ${c.accent} text-white text-xs font-semibold hover:opacity-90 transition-opacity">
-                        <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-                        Buka Ujian
-                      </button>
+                <h3 class="text-lg font-bold text-gray-800">KELAS VIII</h3>
+                <p class="text-xs text-gray-400 mt-1">Tap untuk masuk</p>
+            </button>
+        </div>
+    `;
+    lucide.createIcons();
+}
+
+function renderClass(kelas) {
+    currentView = kelas;
+    const main = document.getElementById('main-content');
+    const links = kelas === 'VII' ? LINKS_VII : LINKS_VIII;
+    const simLink = kelas === 'VII' ? 'https://forms.gle/iamQFgSujKfTs1g58' : 'https://forms.gle/hB57g1PDSRpcK2UC6';
+    const color = kelas === 'VII' ? 'blue' : 'emerald';
+
+    let content = `
+        <div class="fade-in">
+            <button onclick="renderHome()" class="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-800 mb-4 font-medium transition">
+                <i data-lucide="arrow-left" style="width:16px;height:16px;"></i> Kembali
+            </button>
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Kelas ${kelas}</h2>
+    `;
+
+    if (!isExamPeriod()) {
+        content += `
+            <div class="glass rounded-2xl p-6 border border-yellow-200 mb-4">
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="pulse-dot w-2 h-2 rounded-full bg-yellow-500"></span>
+                    <p class="text-sm font-semibold text-yellow-700">Ujian belum dimulai</p>
+                </div>
+                <p class="text-xs text-gray-500 mb-4">Ujian dimulai tanggal 2 Juni 2026. Silakan kerjakan soal simulasi terlebih dahulu.</p>
+                <a href="${simLink}" class="inline-flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-semibold px-4 py-2 rounded-lg transition">
+                    <i data-lucide="file-text" style="width:16px;height:16px;"></i> Soal Simulasi Kelas ${kelas}
+                </a>
+            </div>
+        `;
+    } else {
+        const today = getTodaySchedule();
+        if (!today) {
+            content += `<div class="glass rounded-2xl p-6 border border-gray-200"><p class="text-sm text-gray-500">Tidak ada jadwal ujian hari ini.</p></div>`;
+        } else {
+            const canAccess = isBeforeDeadline();
+            content += `
+                <div class="glass rounded-2xl p-5 border border-${color}-200 mb-2">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="pulse-dot w-2 h-2 rounded-full bg-${color}-500"></span>
+                        <p class="text-sm font-semibold text-gray-700">${today.day}, ${today.date.split('-').reverse().join('/')} ${canAccess ? '' : '<span class="text-red-500 text-xs ml-2">(Waktu habis - Batas 12:15 WITA)</span>'}</p>
                     </div>
-                  `).join('')}
-                </div>
-              </div>`;
-            }).join('')}
-          </div>
-        </div>`;
-      lucide.createIcons();
-    }
-
-    let lastSecond = -1;
-    let lastDay = -1;
-
-    function updateClock() {
-      const el = document.getElementById('clock-display');
-      if (el) {
-        const now = getWITA();
-        const currentSecond = now.getSeconds();
-        // Only update if second changed
-        if (currentSecond !== lastSecond) {
-          el.textContent = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-          lastSecond = currentSecond;
+                    <div class="space-y-2">
+            `;
+            today.subjects.forEach(subj => {
+                const subjLinks = links[subj] || [];
+                if (subjLinks.length === 1) {
+                    const val = subjLinks[0];
+                    if (val === 'Link Menyusul') {
+                        content += `<div class="flex items-center justify-between bg-gray-50 rounded-lg px-4 py-3"><span class="text-sm font-medium text-gray-700">${subj}</span><span class="text-xs text-orange-500 font-medium">Link Menyusul</span></div>`;
+                    } else {
+                        const url = val.split('|')[0];
+                        content += canAccess
+                            ? `<a href="${url}" class="flex items-center justify-between bg-${color}-50 hover:bg-${color}-100 rounded-lg px-4 py-3 transition group"><span class="text-sm font-medium text-gray-700">${subj}</span><i data-lucide="external-link" style="width:14px;height:14px;color:#6b7280;" class="group-hover:text-${color}-600"></i></a>`
+                            : `<div class="flex items-center justify-between bg-gray-50 rounded-lg px-4 py-3 opacity-50"><span class="text-sm font-medium text-gray-700">${subj}</span><i data-lucide="lock" style="width:14px;height:14px;color:#9ca3af;"></i></div>`;
+                    }
+                } else {
+                    content += `<div class="bg-${color}-50 rounded-lg px-4 py-3"><p class="text-sm font-medium text-gray-700 mb-2">${subj}</p><div class="flex flex-wrap gap-2">`;
+                    subjLinks.forEach(l => {
+                        const [url, label] = l.split('|');
+                        content += canAccess
+                            ? `<a href="${url}" class="text-xs bg-white border border-${color}-200 hover:bg-${color}-100 rounded-md px-3 py-1.5 font-medium text-gray-600 transition">${label || subj}</a>`
+                            : `<span class="text-xs bg-gray-100 border border-gray-200 rounded-md px-3 py-1.5 font-medium text-gray-400">${label || subj}</span>`;
+                    });
+                    content += `</div></div>`;
+                }
+            });
+            content += `</div></div>`;
         }
-      }
-
-      // Update current time display in navbar
-      const timeEl = document.getElementById('current-time');
-      if (timeEl) {
-        const now = getWITA();
-        const dayName = DAY_NAMES[now.getDay()];
-        const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        timeEl.textContent = `${dayName} • ${timeStr} WITA`;
-      }
     }
+    content += `</div>`;
+    main.innerHTML = content;
+    lucide.createIcons();
+}
 
-    function renderAll() {
-      const now = getWITA();
-      const currentDay = now.getDay();
-      
-      // Only re-render status/content if day changed or exam period status changed
-      if (currentDay !== lastDay) {
-        renderStatus();
-        renderContent();
-        lastDay = currentDay;
-        lucide.createIcons();
-      }
-      
-      // Always update clock
-      updateClock();
+function renderAdmin() {
+    currentView = 'admin';
+    const main = document.getElementById('main-content');
+    let content = `<div class="fade-in">
+        <button onclick="isAdmin=false;renderHome()" class="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-800 mb-4 font-medium transition">
+            <i data-lucide="arrow-left" style="width:16px;height:16px;"></i> Keluar Admin
+        </button>
+        <h2 class="text-xl font-bold text-gray-800 mb-1">Panel Admin</h2>
+        <p class="text-xs text-gray-400 mb-5">Semua jadwal dan link ujian</p>
+    `;
+
+    ['VII','VIII'].forEach(kelas => {
+        const links = kelas === 'VII' ? LINKS_VII : LINKS_VIII;
+        const color = kelas === 'VII' ? 'blue' : 'emerald';
+        content += `<h3 class="text-lg font-bold text-gray-700 mb-3 mt-6">Kelas ${kelas}</h3>`;
+        SCHEDULE.forEach(day => {
+            content += `<div class="glass rounded-xl p-4 border border-${color}-100 mb-3"><p class="text-sm font-bold text-gray-700 mb-2">${day.day}, ${day.date.split('-').reverse().join('/')}</p><div class="space-y-1.5">`;
+            day.subjects.forEach(subj => {
+                const subjLinks = links[subj] || [];
+                if (subjLinks.length === 1) {
+                    const val = subjLinks[0];
+                    if (val === 'Link Menyusul') {
+                        content += `<div class="flex items-center justify-between px-3 py-2 bg-gray-50 rounded-lg"><span class="text-xs font-medium text-gray-600">${subj}</span><span class="text-xs text-orange-500">Link Menyusul</span></div>`;
+                    } else {
+                        const url = val.split('|')[0];
+                        content += `<a href="${url}" class="flex items-center justify-between px-3 py-2 bg-${color}-50 hover:bg-${color}-100 rounded-lg transition"><span class="text-xs font-medium text-gray-600">${subj}</span><i data-lucide="external-link" style="width:12px;height:12px;color:#6b7280;"></i></a>`;
+                    }
+                } else {
+                    content += `<div class="px-3 py-2 bg-${color}-50 rounded-lg"><span class="text-xs font-medium text-gray-600">${subj}</span><div class="flex flex-wrap gap-1.5 mt-1">`;
+                    subjLinks.forEach(l => {
+                        const [url, label] = l.split('|');
+                        content += `<a href="${url}" class="text-xs bg-white border border-${color}-200 hover:bg-${color}-100 rounded px-2 py-1 font-medium text-gray-600 transition">${label || subj}</a>`;
+                    });
+                    content += `</div></div>`;
+                }
+            });
+            content += `</div></div>`;
+        });
+    });
+    content += `</div>`;
+    main.innerHTML = content;
+    lucide.createIcons();
+}
+
+function showAdminPrompt() {
+    const m = document.getElementById('admin-modal');
+    m.style.display = 'flex';
+    document.getElementById('admin-pass').value = '';
+    document.getElementById('admin-error').classList.add('hidden');
+}
+function hideAdminModal() { document.getElementById('admin-modal').style.display = 'none'; }
+function checkAdmin() {
+    if (document.getElementById('admin-pass').value === ADMIN_PASS) {
+        isAdmin = true;
+        hideAdminModal();
+        renderAdmin();
+    } else {
+        document.getElementById('admin-error').classList.remove('hidden');
     }
+}
+document.getElementById('admin-pass').addEventListener('keydown', e => { if(e.key==='Enter') checkAdmin(); });
 
-    // ===== ELEMENT SDK =====
-    window.elementSdk.init({
-      defaultConfig,
-      onConfigChange: async (config) => {
-        const c = config;
-        const font = c.font_family || defaultConfig.font_family;
-        const baseSize = c.font_size || defaultConfig.font_size;
-        const bgColor = c.background_color || defaultConfig.background_color;
-        const surfaceColor = c.surface_color || defaultConfig.surface_color;
-        const textColor = c.text_color || defaultConfig.text_color;
-        const primaryColor = c.primary_action_color || defaultConfig.primary_action_color;
+// Init
+const defaultConfig = { school_name: 'SMP NEGERI 36 SAMARINDA', portal_title: 'Asesmen Sumatif Akhir Semester', background_color: '#f0f9ff', surface_color: '#ffffff', text_color: '#1f2937', primary_action_color: '#2563eb', secondary_action_color: '#059669', font_family: 'Plus Jakarta Sans', font_size: 14 };
 
-        document.getElementById('app').style.backgroundColor = bgColor;
-        document.getElementById('app').style.fontFamily = `${font}, Plus Jakarta Sans, sans-serif`;
-        document.getElementById('app').style.color = textColor;
-        document.getElementById('app').style.fontSize = `${baseSize}px`;
-
-        const ns = document.getElementById('nav-school');
-        if (ns) ns.textContent = c.school_name || defaultConfig.school_name;
-        const nst = document.getElementById('nav-subtitle');
-        if (nst) nst.textContent = c.exam_title || defaultConfig.exam_title;
-        const ht = document.getElementById('hero-title');
-        if (ht) { ht.textContent = c.exam_title || defaultConfig.exam_title; ht.style.fontSize = `${baseSize * 2}px`; }
-        const hs = document.getElementById('hero-school');
-        if (hs) { hs.textContent = c.school_name || defaultConfig.school_name; hs.style.fontSize = `${baseSize * 1.25}px`; }
-        const hy = document.getElementById('hero-year');
-        if (hy) hy.textContent = 'Tahun Pembelajaran ' + (c.academic_year || defaultConfig.academic_year);
-      },
-      mapToCapabilities: (config) => ({
+window.elementSdk.init({
+    defaultConfig,
+    onConfigChange: async (config) => {
+        document.getElementById('el-school-name').textContent = config.school_name || defaultConfig.school_name;
+        document.getElementById('el-portal-title').textContent = config.portal_title || defaultConfig.portal_title;
+        const appEl = document.getElementById('app');
+        appEl.style.background = `linear-gradient(135deg, ${config.background_color || defaultConfig.background_color}, #eef2ff)`;
+        document.body.style.fontFamily = `${config.font_family || defaultConfig.font_family}, sans-serif`;
+    },
+    mapToCapabilities: (config) => ({
         recolorables: [
-          { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
-          { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
-          { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
-          { get: () => config.primary_action_color || defaultConfig.primary_action_color, set: (v) => { config.primary_action_color = v; window.elementSdk.setConfig({ primary_action_color: v }); } },
-          { get: () => config.secondary_action_color || defaultConfig.secondary_action_color, set: (v) => { config.secondary_action_color = v; window.elementSdk.setConfig({ secondary_action_color: v }); } }
+            { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+            { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+            { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+            { get: () => config.primary_action_color || defaultConfig.primary_action_color, set: (v) => { config.primary_action_color = v; window.elementSdk.setConfig({ primary_action_color: v }); } },
+            { get: () => config.secondary_action_color || defaultConfig.secondary_action_color, set: (v) => { config.secondary_action_color = v; window.elementSdk.setConfig({ secondary_action_color: v }); } },
         ],
         borderables: [],
         fontEditable: { get: () => config.font_family || defaultConfig.font_family, set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); } },
-        fontSizeable: { get: () => config.font_size || defaultConfig.font_size, set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); } }
-      }),
-      mapToEditPanelValues: (config) => new Map([
+        fontSizeable: { get: () => config.font_size || defaultConfig.font_size, set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); } },
+    }),
+    mapToEditPanelValues: (config) => new Map([
         ['school_name', config.school_name || defaultConfig.school_name],
-        ['exam_title', config.exam_title || defaultConfig.exam_title],
-        ['academic_year', config.academic_year || defaultConfig.academic_year]
-      ])
-    });
+        ['portal_title', config.portal_title || defaultConfig.portal_title],
+    ])
+});
 
-    // ===== INIT =====
-    renderAll();
-    setInterval(renderAll, 1000);
-    lucide.createIcons();
-  </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f2bee3596c29787',t:'MTc3NzI3MzAyMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+renderHome();
+lucide.createIcons();
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ff12d4d34ffa3ef',t:'MTc3OTM0MTI5OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
