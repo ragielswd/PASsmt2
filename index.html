@@ -22,10 +22,12 @@
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
  <body class="h-full">
-  <div id="app" class="h-full w-full overflow-auto bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-100" style="min-height:100%;"><!-- Header -->
+  <div id="app" class="h-full w-full overflow-auto bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-100" style="min-height:100%;">
+   <!-- Header -->
    <header class="w-full bg-white/90 backdrop-blur-md shadow-sm border-b border-blue-100 sticky top-0 z-50">
     <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-     <div class="flex items-center gap-3"><img src="https://iili.io/BxaPayB.png" alt="Logo" class="w-12 h-12 object-contain rounded-lg" loading="lazy" onerror="this.style.background='#3b82f6';this.alt='Logo';">
+     <div class="flex items-center gap-3">
+      <img src="https://iili.io/BxaPayB.png" alt="Logo" class="w-12 h-12 object-contain rounded-lg" loading="lazy" onerror="this.style.background='#3b82f6';this.alt='Logo';">
       <div>
        <h1 class="text-sm md:text-base font-bold text-gray-800" id="el-school-name">SMP NEGERI 36 SAMARINDA</h1>
        <p class="text-xs text-blue-600 font-semibold" id="el-portal-title">Asesmen Sumatif Akhir Semester</p>
@@ -41,7 +43,8 @@
     <div class="bg-white rounded-2xl p-6 w-80 shadow-2xl fade-in">
      <h3 class="font-bold text-gray-800 mb-3">Akses Admin</h3><input type="password" id="admin-pass" placeholder="Masukkan password" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm mb-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
      <p id="admin-error" class="text-red-500 text-xs mb-2 hidden">Password salah!</p>
-     <div class="flex gap-2"><button onclick="checkAdmin()" class="flex-1 bg-blue-600 text-white text-sm font-semibold rounded-lg py-2 hover:bg-blue-700 transition">Masuk</button> <button onclick="hideAdminModal()" class="flex-1 bg-gray-100 text-gray-600 text-sm font-semibold rounded-lg py-2 hover:bg-gray-200 transition">Batal</button>
+     <div class="flex gap-2">
+      <button onclick="checkAdmin()" class="flex-1 bg-blue-600 text-white text-sm font-semibold rounded-lg py-2 hover:bg-blue-700 transition">Masuk</button> <button onclick="hideAdminModal()" class="flex-1 bg-gray-100 text-gray-600 text-sm font-semibold rounded-lg py-2 hover:bg-gray-200 transition">Batal</button>
      </div>
     </div>
    </div><!-- Footer -->
@@ -81,7 +84,7 @@ const LINKS_VII = {
     'Bahasa Indonesia': ['https://forms.gle/V8GEvKybazKpjqMA9'],
     'PKn': ['https://forms.gle/AuHKp2PTkh2MtS69A'],
     'IPS': ['https://forms.gle/VsjT1hmNjtYLAbJj9'],
-    'IPA': ['Link Menyusul'],
+    'IPA': ['https://forms.gle/pp7omAUuYY2qrr4Q6'],
     'Seni Budaya': ['https://forms.gle/xhdiYRuy85KyriJD6'],
     'Bahasa Inggris': ['https://forms.gle/zjVgQW2XmXKD63pp7|VII A, B, C', 'https://forms.gle/YnfHFMghAVQg9v9JA|VII D, E'],
     'PJOK': ['https://forms.gle/U4GCxowvhthK5xGy7'],
@@ -321,5 +324,5 @@ window.elementSdk.init({
 renderHome();
 lucide.createIcons();
 </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ff12d4d34ffa3ef',t:'MTc3OTM0MTI5OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a018b40249ccfd75',t:'MTc3OTc1NTc2MQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
